@@ -6,7 +6,8 @@ sudo apt-get remove ffmpeg x264 libav-tools libvpx-dev libx264-dev yasm
 sudo apt-get update
 sudo apt-get -y install autoconf automake build-essential checkinstall git libass-dev libfaac-dev \
   libgpac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev librtmp-dev libspeex-dev \
-  libtheora-dev libtool libvorbis-dev pkg-config texi2html zlib1g-dev libass-dev libfaac-dev
+  libtheora-dev libtool libvorbis-dev pkg-config texi2html zlib1g-dev libass-dev libfaac-dev \
+  libspeex-dev
 
 cd
 wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
