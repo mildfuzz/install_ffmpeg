@@ -1,37 +1,70 @@
-sudo apt-get remove ffmpeg x264 libx264-dev
+#https://ffmpeg.org/trac/ffmpeg/wiki/UbuntuCompilationGuide
+
+sudo apt-get remove ffmpeg x264 libav-tools libvpx-dev libx264-dev yasm
 
 sudo apt-get update
-sudo apt-get install build-essential subversion git-core checkinstall yasm texi2html \
-    libfaac-dev libjack-jackd2-dev libmp3lame-dev libopencore-amrnb-dev \
-    libopencore-amrwb-dev libsdl1.2-dev libtheora-dev libvorbis-dev libvpx-dev \
-    libx11-dev libxfixes-dev libxvidcore-dev zlib1g-dev
+sudo apt-get -y install autoconf automake build-essential checkinstall git libass-dev libfaac-dev \
+  libgpac-dev libmp3lame-dev libopencore-amrnb-dev libopencore-amrwb-dev librtmp-dev libspeex-dev \
+  libtheora-dev libtool libvorbis-dev pkg-config texi2html zlib1g-dev
 
 cd
-git clone git://git.videolan.org/x264.git
-cd x264
+wget http://www.tortall.net/projects/yasm/releases/yasm-1.2.0.tar.gz
+tar xzvf yasm-1.2.0.tar.gz
+cd yasm-1.2.0
 ./configure
 make
-sudo checkinstall --pkgname=x264 --pkgversion "2:0.`grep X264_BUILD x264.h -m1 | \
-    cut -d' ' -f3`.`git rev-list HEAD | wc -l`+git`git rev-list HEAD -n 1 | \
-    head -c 7`" --backup=no --deldoc=yes --fstrans=no --default
+sudo checkinstall --pkgname=yasm --pkgversion="1.2.0" --backup=no \
+  --deldoc=yes --fstrans=no --default
 
 cd
-svn checkout svn://svn.ffmpeg.org/ffmpeg/trunk ffmpeg
-cd ffmpeg
-./configure --enable-gpl --enable-version3 --enable-nonfree --enable-postproc \
-    --enable-libfaac --enable-libmp3lame --enable-libopencore-amrnb \
-    --enable-libopencore-amrwb --enable-libtheora --enable-libvorbis \
-    --enable-libvpx --enable-libx264 --enable-libxvid --enable-x11grab
+git clone --depth 1 git://git.videolan.org/x264.git
+cd x264
+./configure --enable-static
 make
-sudo checkinstall --pkgname=ffmpeg --pkgversion "4:SVN-r`LANG=C svn info | \
-    grep Revision | awk '{ print $NF }'`" --backup=no --deldoc=yes --fstrans=no \
-    --default
-hash x264 ffmpeg ffplay
+sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
+  awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes \
+  --fstrans=no --default
+
+cd
+git clone --depth 1 git://github.com/mstorsjo/fdk-aac.git
+cd fdk-aac
+autoreconf -fiv
+./configure --disable-shared
+make
+sudo checkinstall --pkgname=fdk-aac --pkgversion="$(date +%Y%m%d%H%M)-git" --backup=no \
+  --deldoc=yes --fstrans=no --default
+
+cd
+git clone --depth 1 http://git.chromium.org/webm/libvpx.git
+cd libvpx
+./configure --disable-examples --disable-unit-tests
+make
+sudo checkinstall --pkgname=libvpx --pkgversion="1:$(date +%Y%m%d%H%M)-git" --backup=no \
+  --deldoc=yes --fstrans=no --default
+
+cd
+git clone --depth 1 git://source.ffmpeg.org/ffmpeg
+cd ffmpeg
+./configure --enable-gpl --enable-libass --enable-libfaac --enable-libfdk-aac --enable-libmp3lame \
+  --enable-libopencore-amrnb --enable-libopencore-amrwb --enable-libspeex --enable-librtmp --enable-libtheora \
+  --enable-libvorbis --enable-libvpx --enable-libx264 --enable-nonfree --enable-version3
+make
+sudo checkinstall --pkgname=ffmpeg --pkgversion="7:$(date +%Y%m%d%H%M)-git" --backup=no \
+  --deldoc=yes --fstrans=no --default
+hash -r
 
 cd ~/ffmpeg
 make tools/qt-faststart
-sudo checkinstall --pkgname=qt-faststart --pkgversion "4:SVN-r`LANG=C svn info | \
-    grep Revision | awk '{ print $NF }'`" --backup=no --deldoc=yes --fstrans=no \
-    --default install -D -m755 tools/qt-faststart /usr/local/bin/qt-faststart
+sudo checkinstall --pkgname=qt-faststart --pkgversion="$(date +%Y%m%d%H%M)-git" --backup=no \
+  --deldoc=yes --fstrans=no --default install -Dm755 tools/qt-faststart \
+  /usr/local/bin/qt-faststart
 
+cd ~/x264
+make distclean
+./configure --enable-static
+make
+sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
+  awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes \
+  --fstrans=no --default
 
+echo "DONE\n"
