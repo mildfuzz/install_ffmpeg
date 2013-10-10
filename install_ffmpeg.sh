@@ -6,7 +6,7 @@ sudo apt-get remove ffmpeg x264 libav-tools libvpx-dev libx264-dev yasm
 sudo apt-get update
 sudo apt-get -y install autoconf automake build-essential git libass-dev libgpac-dev \
   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libx11-dev \
-  libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev yasm libmp3lame-dev 
+  libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev yasm libmp3lame-dev \
   libopus-dev libvpx-dev
 
 mkdir ~/ffmpeg_sources
