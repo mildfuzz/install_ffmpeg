@@ -1,10 +1,9 @@
 #https://ffmpeg.org/trac/ffmpeg/wiki/UbuntuCompilationGuide
-#need to add multiverse repo
 
-sudo apt-get -y remove ffmpeg x264 libav-tools libvpx-dev libx264-dev yasm
+apt-get -y remove ffmpeg x264 libav-tools libvpx-dev libx264-dev yasm
 
-sudo apt-get update
-sudo apt-get -y install autoconf automake build-essential git libass-dev libgpac-dev \
+apt-get update
+apt-get -y install autoconf automake build-essential git libass-dev libgpac-dev \
   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libx11-dev \
   libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev yasm libmp3lame-dev \
   libopus-dev libvpx-dev
