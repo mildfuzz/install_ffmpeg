@@ -5,7 +5,7 @@
 
 ```
 wget https://raw.github.com/joshfng/install_ffmpeg/master/install_ffmpeg.sh
-chmod +x install_ffmpeg.sh```
+chmod +x install_ffmpeg.sh
 ./install_ffmpeg.sh
 ```
 
