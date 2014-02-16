@@ -6,7 +6,7 @@ sudo apt-get update
 
 sudo apt-get -y install autoconf automake build-essential libass-dev libgpac-dev \
   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libx11-dev \
-  libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev unzip
+  libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev libfaac-dev unzip
 
 mkdir ~/ffmpeg_sources
 
@@ -68,7 +68,7 @@ export PKG_CONFIG_PATH
 ./configure --prefix="$HOME/ffmpeg_build" --extra-cflags="-I$HOME/ffmpeg_build/include" \
    --extra-ldflags="-L$HOME/ffmpeg_build/lib" --bindir="$HOME/bin" --extra-libs=-ldl --enable-gpl \
    --enable-libass --enable-libfdk-aac --enable-libmp3lame --enable-libopus --enable-libtheora \
-   --enable-libvorbis --enable-libvpx --enable-libx264 --enable-nonfree
+   --enable-libvorbis --enable-libvpx --enable-libx264 --enable-nonfree --enable-libfaac 
 make
 make install
 make distclean
