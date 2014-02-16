@@ -70,6 +70,9 @@ export PKG_CONFIG_PATH
    --enable-libass --enable-libfdk-aac --enable-libmp3lame --enable-libopus --enable-libtheora \
    --enable-libvorbis --enable-libvpx --enable-libx264 --enable-nonfree
 make
+make test
+make tools/qt-faststart
+cp -a tools/qt-faststart ~/bin
 make install
 make distclean
 hash -r
