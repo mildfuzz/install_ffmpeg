@@ -1,9 +1,10 @@
 #https://ffmpeg.org/trac/ffmpeg/wiki/UbuntuCompilationGuide
 
-apt-get -y purge ffmpeg x264 libav-tools libvpx-dev libx264-dev yasm
+sudo apt-get -y purge ffmpeg x264 libav-tools libvpx-dev libx264-dev yasm
 
-apt-get update
-apt-get -y install autoconf automake build-essential libass-dev libgpac-dev \
+sudo apt-get update
+
+sudo apt-get -y install autoconf automake build-essential libass-dev libgpac-dev \
   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libx11-dev \
   libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev unzip
 
@@ -38,7 +39,7 @@ make
 make install
 make distclean
 
-apt-get install libmp3lame-dev
+sudo apt-get install libmp3lame-dev
 
 cd ~/ffmpeg_sources
 wget http://downloads.xiph.org/releases/opus/opus-1.1.tar.gz
