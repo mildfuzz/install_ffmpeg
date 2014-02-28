@@ -6,7 +6,7 @@ sudo apt-get update
 
 sudo apt-get -y install autoconf automake build-essential libass-dev libgpac-dev \
   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libx11-dev \
-  libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev unzip
+  libxext-dev libxfixes-dev pkg-config texi2html zlib1g-dev unzip libass-dev
 
 mkdir ~/ffmpeg_sources
 
