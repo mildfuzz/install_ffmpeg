@@ -2,7 +2,7 @@
 
 sudo apt-get -y purge ffmpeg x264 libav-tools libvpx-dev libx264-dev yasm
 
-sudo apt-get update
+sudo apt-get -y update
 
 sudo apt-get -y install autoconf automake build-essential libass-dev libgpac-dev \
   libsdl1.2-dev libtheora-dev libtool libva-dev libvdpau-dev libvorbis-dev libx11-dev \
@@ -39,7 +39,7 @@ make
 make install
 make distclean
 
-sudo apt-get install libmp3lame-dev
+sudo apt-get -y install libmp3lame-dev
 
 cd ~/ffmpeg_sources
 wget http://downloads.xiph.org/releases/opus/opus-1.1.tar.gz
